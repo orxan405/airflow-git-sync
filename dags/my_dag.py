@@ -23,5 +23,3 @@ with DAG('my_dag', default_args=default_args, schedule_interval='@daily', catchu
 
     t0 >> t1 >> t2
 
-
-    
