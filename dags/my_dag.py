@@ -21,5 +21,6 @@ with DAG('my_dag', default_args=default_args, schedule_interval='@daily', catchu
     t2 = BashOperator(task_id='check_file_exists', bash_command='sha256sum /tmp/dirty_store_transactions.csv',
                       retries=2, retry_delay=timedelta(seconds=15))
 
+
     t0 >> t1 >> t2
 
