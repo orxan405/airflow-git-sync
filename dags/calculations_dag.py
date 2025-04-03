@@ -39,3 +39,4 @@ with DAG('calculations', default_args=default_args, schedule_interval='*/5 * * *
     t3 = PythonOperator(task_id='divide', python_callable=divide,
                         op_kwargs={'x': 20, 'y': 5 })
     t1 >> t2 >> t3
+    
