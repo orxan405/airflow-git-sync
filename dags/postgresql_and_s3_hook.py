@@ -23,10 +23,10 @@ ssh_train_password = Variable.get("ssh_train_password")
 
 with DAG('s3_to_postgres_dag', default_args=default_args, schedule_interval='@once', catchup=False) as dag:
 
-    t0 = BashOperator{
+    t0 = BashOperator(
     task_id = "scp_python_scrips",
     bash_command = f"sshpass -v -p {ssh_train_password} scp -o StrictHostKeyChecking=no -r /opt/airflow/code_base/airflow-git-sync/python_apps ssh_train@spark_client:/home/ssh_train/"
-    }
+    )
 
     # t1 = SSHOperator(
     # task_id="df_to_s3",
