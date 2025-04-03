@@ -34,10 +34,7 @@ s3 = get_s3_client()
 SQLALCHEMY_DATABASE_URL="postgresql://train:Ankara06@postgres:5432/traindb"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, echo=True)
 
-# Read csv file from minio and create pandas dataframe
-df = load_df_from_s3(bucket='airflow-demo', key='dataops11/ml/Churn_Modelling.csv', s3=s3)
 
-# Do the necessary operations like transformation, join, clean and filter.
+df = load_df_from_s3(bucket='airflow-demo', key='dataops12/ml/dirty_store_transactions.csv', s3=s3)
 
-# Write pandas dataframe to postgresql table
-df.to_sql('churn_modelling', con=engine, if_exists='replace')
+df.to_sql('dirty_store_transactions', con=engine, if_exists='replace')
