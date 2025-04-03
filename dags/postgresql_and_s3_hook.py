@@ -28,15 +28,15 @@ with DAG('s3_to_postgres_dag', default_args=default_args, schedule_interval='@on
     bash_command = f"sshpass -v -p {ssh_train_password} scp -o StrictHostKeyChecking=no -r /opt/airflow/code_base/airflow-git-sync/python_apps ssh_train@spark_client:/home/ssh_train/"
     )
 
-    # t1 = SSHOperator(
-    # task_id="df_to_s3",
-    # command=f"""source /dataops/airflowenv/bin/activate && 
-    # python /dataops/load_df_to_s3.py -ep {endpoint_url} -aki {aws_access_key_id} -sak {aws_secret_access_key} -sfu {source_file_url}""",
-    # ssh_conn_id='spark_ssh_conn')
+    t1 = SSHOperator(
+    task_id="df_to_s3",
+    command=f"""source /dataops/airflowenv/bin/activate && 
+    python /dataops/load_df_to_s3.py -ep {endpoint_url} -aki {aws_access_key_id} -sak {aws_secret_access_key} -sfu {source_file_url}""",
+    ssh_conn_id='spark_ssh_conn')
 
     # t2 = SSHOperator(task_id='s3_to_postgres', 
     #                 command="""source /dataops/airflowenv/bin/activate &&
     #                 python /dataops/read_df_from_s3_write_postgres.py """,
     #                 ssh_conn_id='spark_ssh_conn')
 
-    # t1 >> t2
+    t0 >> t1 
