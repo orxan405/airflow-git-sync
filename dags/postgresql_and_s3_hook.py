@@ -31,7 +31,7 @@ with DAG('s3_to_postgres_dag', default_args=default_args, schedule_interval='@on
     t1 = SSHOperator(
     task_id="df_to_s3",
     command=f"""source /dataops/airflowenv/bin/activate && 
-    python /dataops/load_df_to_s3.py -ep {endpoint_url} -aki {aws_access_key_id} -sak {aws_secret_access_key} -sfu {source_file_url}""",
+    python /home/ssh_train/python_apps/load_df_to_s3.py -ep {endpoint_url} -aki {aws_access_key_id} -sak {aws_secret_access_key} -sfu {source_file_url}""",
     ssh_conn_id='spark_ssh_conn')  
 
     # t2 = SSHOperator(task_id='s3_to_postgres', 
